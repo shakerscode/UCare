@@ -1,6 +1,6 @@
 import { FaMicrophone } from "react-icons/fa";
 import { IoLocationOutline, IoSearch } from "react-icons/io5";
-import { IHomeProps } from "../interfaces";
+import { IHomeProps } from "../../interfaces";
 
 function SearchBox({ location }: { location: IHomeProps }) {
   return (

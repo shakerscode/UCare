@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Card } from "./home/Card";
 import { HeroSection } from "./home/Hero";
 import SearchBox from "./home/SearchBox";
-import { IHomeProps } from "./interfaces";
+import { IHomeProps } from "../interfaces";
 
 function Home() {
   const [location, setLocation] = useState<IHomeProps>({
