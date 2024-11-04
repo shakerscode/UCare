@@ -5,13 +5,14 @@ import { HeroSection } from "./home/Hero";
 import SearchBox from "./home/SearchBox";
 import { IHomeProps } from "./interfaces";
 
-
 function Home() {
   const [location, setLocation] = useState<IHomeProps>({
     latitude: null,
     longitude: null,
   });
   const [error, setError] = useState<string | null>(null);
+
+  console.log(error);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -29,7 +30,6 @@ function Home() {
     }
   }, []);
 
- 
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   return (
     <div className="">
@@ -38,7 +38,7 @@ function Home() {
       </div>
       <div className="min-h-[500px] my-20 px-4 md:px-8">
         <section className="h-full w-full mt-10">
-          <SearchBox location={location}/>
+          <SearchBox location={location} />
         </section>
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
           {arr.map((d) => (
