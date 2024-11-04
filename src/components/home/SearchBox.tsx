@@ -1,13 +1,23 @@
 import { FaMicrophone } from "react-icons/fa";
 import { IoLocationOutline, IoSearch } from "react-icons/io5";
+import { IHomeProps } from "../interfaces";
 
-function SearchBox() {
+function SearchBox({ location }: { location: IHomeProps }) {
   return (
     <div className="block md:flex items-center justify-between">
-      <h2 className="w-fit flex items-center gap-2 text-gray-900 font-semibold text-xl md:text-3xl capitalize">
-        Find The <span className="text-teal-500 und">nearest healthcare</span>{" "}
-        <div className="h-[2px] w-8 md:w-20 mt-2 bg-teal-500"></div>
-      </h2>
+      <div>
+        <h2 className="w-fit flex items-center gap-2 text-gray-900 font-semibold text-xl md:text-3xl capitalize">
+          Find The <span className="text-teal-500 und">nearest healthcare</span>{" "}
+          <div className="h-[2px] w-8 md:w-20 mt-2 bg-teal-500"></div>
+        </h2>
+        <div className="flex items-center gap-1 mt-2">
+          <IoLocationOutline className="text-xl   text-teal-500" />
+          <div className="text-xs flex items-center gap-2  text-gray-500">
+            <p>Long: {location?.longitude}</p>
+            <p>Lat: {location?.latitude}</p>
+          </div>
+        </div>
+      </div>
       <form className="flex items-center mt-5 md:mt-0 min-w-fit md:w-[500px]">
         <label htmlFor="voice-search" className="sr-only">
           Search
