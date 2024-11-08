@@ -14,23 +14,10 @@ function Header() {
         </div>
       </Link>
 
-      {/* Menu Links */}
-      <div className="hidden md:flex items-center space-x-6 text-gray-800 font-medium">
-        <div className="flex items-center space-x-1 cursor-pointer">
-          <span className="cursor-pointer">Pages</span>
-        </div>
-        <span className="cursor-pointer">About Medical Clinic</span>
-        <span className="cursor-pointer">Our Doctors</span>
-        <span className="cursor-pointer">Treatments</span>
-        <span className="cursor-pointer">Contact Us</span>
-        <div className="flex items-center space-x-1 cursor-pointer">
-          <span className="cursor-pointer">Our News</span>
-        </div>
-      </div>
-
       {/* Emergency Call Button */}
       <button className="bg-teal-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-teal-700 transition duration-200 flex items-center gap-1">
-        <span className={"hidden md:flex"}>Emergency Call</span> <BiSolidPhoneCall className="text-lg"/>
+        <span className={"hidden md:flex"}>Emergency Call</span>{" "}
+        <BiSolidPhoneCall className="text-lg" />
       </button>
     </nav>
   );
