@@ -39,7 +39,7 @@ function Home() {
   const [hospitals, setHospitals] = useState<Hospital[]>([]);
   const [loading, setLoading] = useState<boolean>(true); // Add loading state
 
-  console.log(error)
+  console.log(error);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -47,7 +47,7 @@ function Home() {
         (position) => {
           const { latitude, longitude } = position.coords;
           setLocation({ latitude, longitude });
-          fetchNearbyHospitals(40.6782, 73.9442);
+          fetchNearbyHospitals(latitude, longitude);
         },
         (error) => {
           setError(error.message);
@@ -77,7 +77,7 @@ function Home() {
     }
   };
 
-  console.log(hospitals)
+  console.log(hospitals);
 
   return (
     <div className="">
