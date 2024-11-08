@@ -3,32 +3,9 @@ import { useEffect, useState } from "react";
 import { Card } from "./home/Card";
 import { HeroSection } from "./home/Hero";
 import SearchBox from "./home/SearchBox";
-import { IHomeProps } from "../interfaces";
+import { IHomeProps, UrgentCareFacility } from "../interfaces";
 import { CardSkeleton } from "./shared/CardSkeleton";
-
-interface Hospital {
-  id: number;
-  lat: number;
-  lon: number;
-  tags: {
-    "addr:city"?: string;
-    "addr:housenumber"?: string;
-    "addr:postcode"?: string;
-    "addr:street"?: string;
-    amenity?: string;
-    check_date?: string;
-    emergency?: string;
-    "gnis:feature_id"?: string;
-    healthcare?: string;
-    name?: string;
-    opening_hours?: string;
-    operator?: string;
-    "operator:wikidata"?: string;
-    "operator:wikipedia"?: string;
-    phone?: string;
-    website?: string;
-  };
-}
+import { FaQuestionCircle } from "react-icons/fa";
 
 function Home() {
   const [location, setLocation] = useState<IHomeProps>({
@@ -36,8 +13,8 @@ function Home() {
     longitude: null,
   });
   const [error, setError] = useState<string | null>(null);
-  const [hospitals, setHospitals] = useState<Hospital[]>([]);
-  const [loading, setLoading] = useState<boolean>(true); // Add loading state
+  const [hospitals, setHospitals] = useState<UrgentCareFacility[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   console.log(error);
 
@@ -51,7 +28,7 @@ function Home() {
         },
         (error) => {
           setError(error.message);
-          setLoading(false); // Stop loading if there’s an error
+          setLoading(false);
         }
       );
     } else {
@@ -60,24 +37,22 @@ function Home() {
     }
   }, []);
 
-  // const url = `https://overpass-api.de/api/interpreter?data=[out:json];node(around:${radius},${latitude},${longitude})[amenity=hospital];out;`;
   const fetchNearbyHospitals = async (latitude: number, longitude: number) => {
-    const radius = 5000;
-    const url = `https://overpass-api.de/api/interpreter?data=[out:json];node(around:${radius},${latitude},${longitude})[amenity=clinic][healthcare=clinic];out;`;
+    const url = `https://googel-location-details.onrender.com/api/nearbyUrgentCares?latitude=${latitude}&longitude=${longitude}`;
 
     try {
       const response = await fetch(url);
       const data = await response.json();
-      setHospitals(data.elements);
+
+      setHospitals(data);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching hospital data:", error);
       setError("Failed to fetch hospital data.");
     } finally {
-      setLoading(false); // Stop loading when the data fetch is complete
+      setLoading(false);
     }
   };
-
-  console.log(hospitals);
 
   return (
     <div className="">
@@ -86,17 +61,31 @@ function Home() {
       </div>
       <div className="min-h-[500px] my-20 px-4 md:px-8">
         <section className="h-full w-full mt-10">
-          <SearchBox location={location} />
+          <SearchBox />
         </section>
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-          {loading
-            ? Array.from({ length: 6 }, (_, index) => (
-                <CardSkeleton key={index} />
-              ))
-            : hospitals?.map((d) => (
-                <Card key={d?.id} data={d.tags} id={d?.id} />
-              ))}
-        </div>
+        {loading ? (
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+            {Array.from({ length: 6 }, (_, index) => (
+              <CardSkeleton key={index} />
+            ))}
+          </div>
+        ) : hospitals.length > 0 ? (
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+            {hospitals.map((d) => (
+              <Card
+                key={d?.id}
+                data={d}
+                destinationLat={location?.latitude as number}
+                destinationLon={location.longitude as number}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center gap-5 h-96">
+            <FaQuestionCircle size={60} className="text-gray-400" />
+            <p className="text-gray-400">Not found</p>
+          </div>
+        )}
       </div>
     </div>
   );
