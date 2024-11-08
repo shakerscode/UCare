@@ -146,19 +146,22 @@ export const Card = ({
         <div className="flex items-center mt-2">
           <MdAddHomeWork className="text-teal-500 mr-2" />
           <p className="text-gray-600 text-sm">
-            Total Time: <span className="bg-teal-500 text-white text-xs p-1 rounded-md">
-            {selectedTimes.length > 0
-              ? (selectedTimes.find((t) => t.id === data.id)?.waitTime ?? 0) +
-                (data.duration ? Number(data.duration.split(" ")[0]) : 0)
-              : (sTime as number) + Number(data.duration.split(" ")[0])}
-            min
+            Total Time:{" "}
+            <span className="bg-teal-500 text-white text-xs p-1 rounded-md">
+              {selectedTimes.length > 0
+                ? (selectedTimes.find((t) => t.id === data.id)?.waitTime ?? 0) +
+                  (data.duration ? Number(data.duration.split(" ")[0]) : 0)
+                : (sTime as number) + Number(data.duration.split(" ")[0])}
+              min
             </span>
           </p>
         </div>
 
         <div className="flex items-center mt-2">
           <GiPathDistance className="text-teal-500 text-lg mr-2" />
-          <p className="text-gray-600 text-sm">{data?.distance}</p>
+          <p className="text-gray-600 text-sm">
+            {data?.distance?.split(" ")[0]} miles
+          </p>
         </div>
 
         <div className="flex items-center gap-2">
