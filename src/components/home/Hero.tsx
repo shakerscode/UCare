@@ -50,11 +50,7 @@ export const HeroSection = () => {
           <div className="text-center">
             <p className="text-4xl font-bold text-gray-800">24/7</p>
             <p className="text-gray-600">Emergency Care</p>
-          </div>
-          <div className="text-center">
-            <p className="text-4xl font-bold text-gray-800">98%</p>
-            <p className="text-gray-600">Client Satisfaction</p>
-          </div>
+          </div> 
         </div>
       </div>
     </section>
